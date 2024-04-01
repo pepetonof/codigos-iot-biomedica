@@ -26,9 +26,9 @@ def handle_interrupt(pin):
   global interrupt_pin
   interrupt_pin = pin 
 
-led = Pin(27, Pin.OUT)
+led = Pin(2, Pin.OUT)
 pir = Pin(14, Pin.IN)
-pir.irq(trigger=Pin.IRQ_RISING, handler=handle_interrupt)
+pir.irq(trigger=Pin.IRQ_FALLING, handler=handle_interrupt)
 
 while True:
   if motion:
