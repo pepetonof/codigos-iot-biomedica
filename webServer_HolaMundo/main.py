@@ -1,3 +1,30 @@
+try:
+  import usocket as socket
+except:
+  import socket
+
+import network
+
+import esp
+esp.osdebug(None)
+
+import gc
+gc.collect()
+
+ssid = 'PepeModem_2.4Gnormal'
+password = 'JoseFuentesTomas'
+
+station = network.WLAN(network.STA_IF)
+
+station.active(True)
+station.connect(ssid, password)
+
+while station.isconnected() == False:
+  pass
+
+print('Connection successful')
+print(station.ifconfig())
+
 def web_page():
   html = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
   <body><h1>Hello, World!</h1></body></html>"""
