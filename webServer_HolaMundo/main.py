@@ -1,9 +1,12 @@
 #Funcion que devuelve el texto html
+#Notar que se usan triples comillas, permitiendo la impresion en varias lineas
+
 def web_page():
   html = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
   <body><h1>Hello, World!</h1></body></html>"""
   return html
 
+#Crear el socket y especificar el tipo
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind(('', 80))
 s.listen(5)
