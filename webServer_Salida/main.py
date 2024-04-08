@@ -49,14 +49,14 @@ while True:
     request = conn.recv(1024)#recibe datos (bytes) max cant inf simult.
     conn.settimeout(None)#blocking socket
     request = str(request)
-    print('Content = %s' % request)
+    #print('Content = %s' % request)
     led_on = request.find('/?led=on')
     led_off = request.find('/?led=off')
     if led_on == 6:
-      print('LED ON')
+      print('LED ON', request)
       led.value(1)
     if led_off == 6:
-      print('LED OFF')
+      print('LED OFF', request)
       led.value(0)
     response = web_page()
     conn.send('HTTP/1.1 200 OK\n')
