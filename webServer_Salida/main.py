@@ -12,8 +12,8 @@ esp.osdebug(None)
 import gc
 gc.collect()
 
-ssid = 'X'
-password = 'pswd'
+ssid = 'PepeModem_2.4Gnormal'
+password = 'JoseFuentesTomas'
 
 station = network.WLAN(network.STA_IF)
 
@@ -41,13 +41,13 @@ s.listen(5)
 
 while True:
   try:
-    if gc.mem_free() < 102000:
+    if gc.mem_free() < 102000:#number of bytes 
       gc.collect()
     conn, addr = s.accept()
-    conn.settimeout(3.0)
+    conn.settimeout(3.0)#Tiempo (s) de espera en operacion blocking
     print('Got a connection from %s' % str(addr))
-    request = conn.recv(1024)
-    conn.settimeout(None)
+    request = conn.recv(1024)#recibe datos (bytes) max cant inf simult.
+    conn.settimeout(None)#blocking socket
     request = str(request)
     print('Content = %s' % request)
     led_on = request.find('/?led=on')
