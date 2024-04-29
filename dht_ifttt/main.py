@@ -1,5 +1,3 @@
-# Complete project details at https://RandomNerdTutorials.com
-
 from machine import Pin#, I2C
 #import BME280
 import dht
@@ -15,7 +13,11 @@ gc.collect()
 ssid = 'PepeModem_2.4Gnormal'
 password = 'JoseFuentesTomas'
 
-api_key = 'nXzAb0zj9hZundKtdj_5FBEvmBkji4XgK3CSAxRL7px'
+#thirdparty = 'http://maker.ifttt.com/trigger/dht/with/key/'
+#api_key = 'nXzAb0zj9hZundKtdj_5FBEvmBkji4XgK3CSAxRL7px'
+
+thirdparty = 'https://hook.us1.make.com/'
+api_key = '79fckj22faiicrkxgqmuhjqbqmel3cgn'
 
 station = network.WLAN(network.STA_IF)
 
@@ -54,7 +56,7 @@ try:
   request_headers = {'Content-Type': 'application/json'}
 
   request = urequests.post(
-    'http://maker.ifttt.com/trigger/dht/with/key/' + api_key,
+    thirdparty + api_key,
     json=sensor_readings,
     headers=request_headers)
   print(request.text)
@@ -62,4 +64,3 @@ try:
 
 except OSError as e:
   print('Failed to read/publish sensor readings.')
-
