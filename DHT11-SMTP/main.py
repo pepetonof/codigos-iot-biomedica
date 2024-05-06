@@ -11,6 +11,7 @@ password = 'JoseFuentesTomas'
 sender_email = 'netmiauv3@gmail.com'
 sender_name = 'ESP32' #sender name
 sender_app_password = 'quqqnngzuastyvxg'
+#hsayqbholhyohegz
 recipient_email ='netmiauv3@gmail.com'
 email_subject ='Test Email'
 

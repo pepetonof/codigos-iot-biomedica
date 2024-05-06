@@ -3,6 +3,7 @@ from machine import Pin#, I2C
 import dht
 import network
 import urequests
+import time
 
 import esp
 esp.osdebug(None)
@@ -18,6 +19,9 @@ password = 'JoseFuentesTomas'
 
 thirdparty = 'https://hook.us1.make.com/'
 api_key = '79fckj22faiicrkxgqmuhjqbqmel3cgn'
+
+#thirdparty = 'https://hook.us1.make.com/'
+#api_key = 'xms9wxlqmbdmbmfff8mbw2df59w2i4v3'
 
 station = network.WLAN(network.STA_IF)
 
@@ -50,9 +54,9 @@ def read_sensor():
 
 try:
   read_sensor()
-  sensor_readings = {'value1':temp, 'value2':hum}
-  print(sensor_readings)
-
+  date=time.localtime()
+  date = (b'{0:2d}/{1:2d}/{2:2d} at {3:2d}:{4:2d}:{5:2d}'.format(date[2],date[1],date[0],date[3],date[4],date[5]))
+  sensor_readings = {'value1':temp, 'value2':hum, 'date':date}
   request_headers = {'Content-Type': 'application/json'}
 
   request = urequests.post(
@@ -64,3 +68,4 @@ try:
 
 except OSError as e:
   print('Failed to read/publish sensor readings.')
+
