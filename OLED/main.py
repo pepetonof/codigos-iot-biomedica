@@ -4,6 +4,8 @@ from machine import Pin, UART, ADC, SoftI2C, Timer
 import ssd1306 #OLED library
 from time import sleep
 
+#Pin 2 with LED
+led = Pin(2, Pin.OUT)
 
 #ADC
 sensor = ADC(Pin(4))
@@ -22,36 +24,28 @@ def timer_interrupt(t):
     reading = sensor.read()
     L = reading & 0xFF
     H = (reading >> 8) & 0x03
-    #uart.writechar(H)
-    #uart.writechar(L)
-    while uart.txdone():
-        uart.write(str(reading)+'\n')
-#         uart.write(b)
 #     while uart.txdone():
-#         uart.write(str(reading)+'\n')
-#     while uart.txdone():
-#         uart.write(str(reading)+'\n')
-#     while uart.txdone():
-#         uart.write(str(reading)+'\n')
-    
+#        uart.write(str(reading))
+    uart.write(b'\x64')#100
+    uart.write(b'\xc8')#200
+    uart.write((H).to_bytes(1,'big'))
+    uart.write((L).to_bytes(1,'big'))
 
 #Timer 
 timer = Timer(0)
-timer.init(period=1000, mode=Timer.PERIODIC, callback=timer_interrupt)
+timer.init(period=100, mode=Timer.PERIODIC, callback=timer_interrupt)
 
 #UART
 # def rx_interrupt():
+#     UART.flush
 #     led.value(not led.value())
-uart = UART(1, baudrate=115200, tx=1, rx=3)#Using same Pines as the UART0 with different UART
-
+    
+uart = UART(1, baudrate=115200, tx=1, rx=3)#Using same Pines as the UART0 with different UART(1)
 # Attach the interrupt handler to the UART RX IRQ
-#uart.irq(trigger=UART.RX_ANY, handler=on_uart_rx)
+# uart.irq(trigger=uart.RX_ANY, handler=rx_interrupt)
 
-#Pin 2 with LED
-led = Pin(2, Pin.OUT)
 
 reading = sensor.read()
-
 while True:
     oled.text(str(reading), 0, 10)
     oled.show()
